@@ -41,17 +41,13 @@
     <canvas id="myChart"></canvas>
   </div>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('service-worker.js')
-        .then((registration) => {
-          console.log('Service Worker Registered!');
-        })
-        .catch((error) => {
-          console.log('Service Worker Registration Failed!');
-          console.log(error);
-        });
+    (function() {
+    if("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("Service Worker registered successfully."))
+        .catch (error => console.log("Service Worker registration failed:", error));
     }
+  })();
   </script>  
     <script src="idb.js"></script>
     <script src="./service-worker.js"></script>
