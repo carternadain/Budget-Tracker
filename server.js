@@ -18,6 +18,10 @@ app.use(express.static("public"));
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
   useFindAndModify: false
 });
 
