@@ -1,3 +1,7 @@
+const STATIC_CACHE = "static-cache-v2";
+const DATA_CACHE = "data-cache-v1";
+const RUNTIME_CACHE = "runtime-cache";
+
 const FILES_TO_CACHE = [
 	'/',
 	'/index.html',
@@ -10,11 +14,8 @@ const FILES_TO_CACHE = [
 	'/icons/icon-512x512.png'
 ];
 
-const STATIC_CACHE = "static-cache-v2";
-const DATA_CACHE = "data-cache-v1";
-const RUNTIME_CACHE = "runtime-cache";
 
-// Install lifecycle method
+// this will Install lifecycle method
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(STATIC_CACHE)
@@ -23,7 +24,7 @@ self.addEventListener("install", event => {
   );
 });
 
-// The activate handler takes care of cleaning up old caches.
+// cleans up old caches
 self.addEventListener("activate", event => {
     const currentCaches = [STATIC_CACHE, RUNTIME_CACHE];
     event.waitUntil(
@@ -37,7 +38,7 @@ self.addEventListener("activate", event => {
     );
   });
   
-// fetch
+// this will fetch 
 self.addEventListener("fetch", event => {
     // non GET requests are not cached and requests to other origins are not cached
     if (
@@ -48,7 +49,7 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // handle runtime GET requests for data from /api routes
+    // handles the runtime "GET requests" for the data from api routes
     if (event.request.url.includes("/api/transaction")) {
         // make network request and fallback to cache if network request fails (offline)
         event.respondWith(
@@ -64,7 +65,7 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // use cache first for all other requests for performance
+    // use cache first for the performance 
     event.respondWith(
         caches.match(event.request).then(cachedResponse => {
             if (cachedResponse) {
