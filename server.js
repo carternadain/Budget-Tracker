@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const compression = require("compression");
 
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/PWA-Budget-Tracker";
+// const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/PWA-Budget-Tracker";
 const app = express();
 
 
@@ -16,10 +16,9 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-mongoose.connect(MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || '"mongodb://localhost/PWA-Budget-Tracker"', {
   useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
 
 // routes
